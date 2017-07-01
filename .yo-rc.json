@@ -1,0 +1,9 @@
+{
+  "generator-android-mvp-starter": {
+    "promptValues": {
+      "name": "DailyFuelPrice",
+      "targetSdk": 26,
+      "minSdk": 19
+    }
+  }
+}
