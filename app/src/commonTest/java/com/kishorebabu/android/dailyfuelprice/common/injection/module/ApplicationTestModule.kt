@@ -1,7 +1,7 @@
 package com.kishorebabu.android.dailyfuelprice.common.injection.module
 
 import com.kishorebabu.android.dailyfuelprice.data.DataManager
-import com.kishorebabu.android.dailyfuelprice.data.remote.MvpStarterService
+import com.kishorebabu.android.dailyfuelprice.data.remote.FuelPriceService
 import com.kishorebabu.android.dailyfuelprice.injection.ApplicationContext
 import android.app.Application
 import android.content.Context
@@ -41,8 +41,8 @@ class ApplicationTestModule(private val mApplication: Application) {
 
     @Provides
     @Singleton
-    internal fun provideMvpBoilerplateService(): MvpStarterService {
-        return mock(MvpStarterService::class.java)
+    internal fun provideMvpBoilerplateService(): FuelPriceService {
+        return mock(FuelPriceService::class.java)
     }
 
 }

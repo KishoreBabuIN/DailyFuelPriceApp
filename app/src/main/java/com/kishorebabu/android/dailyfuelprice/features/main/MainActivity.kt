@@ -1,29 +1,23 @@
 package com.kishorebabu.android.dailyfuelprice.features.main
 
-import com.kishorebabu.android.dailyfuelprice.R
-import com.kishorebabu.android.dailyfuelprice.features.base.BaseActivity
-import com.kishorebabu.android.dailyfuelprice.features.common.ErrorView
-import com.kishorebabu.android.dailyfuelprice.features.detail.DetailActivity
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ProgressBar
 import butterknife.BindView
+import com.kishorebabu.android.dailyfuelprice.R
+import com.kishorebabu.android.dailyfuelprice.features.base.BaseActivity
+import com.robinhood.ticker.TickerUtils
+import com.robinhood.ticker.TickerView
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, ErrorView.ErrorListener {
-
-    @Inject lateinit var mPokemonAdapter: PokemonAdapter
+class MainActivity : BaseActivity(), MainMvpView {
     @Inject lateinit var mMainPresenter: MainPresenter
 
-    @BindView(R.id.view_error) @JvmField var mErrorView: ErrorView? = null
     @BindView(R.id.progress) @JvmField var mProgress: ProgressBar? = null
-    @BindView(R.id.recycler_pokemon) @JvmField var mPokemonRecycler: RecyclerView? = null
-    @BindView(R.id.swipe_to_refresh) @JvmField var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    @BindView(R.id.petrol_price_view) @JvmField var mPetrolPriceView: TickerView? = null
+    @BindView(R.id.diesel_price_view) @JvmField var mDieselPriceView: TickerView? = null
     @BindView(R.id.toolbar) @JvmField var mToolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,19 +25,20 @@ class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, 
         activityComponent().inject(this)
         mMainPresenter.attachView(this)
 
+        mToolbar?.title = "Chennai"
         setSupportActionBar(mToolbar)
 
-        mSwipeRefreshLayout?.setProgressBackgroundColorSchemeResource(R.color.primary)
-        mSwipeRefreshLayout?.setColorSchemeResources(R.color.white)
-        mSwipeRefreshLayout?.setOnRefreshListener { mMainPresenter.getPokemon(POKEMON_COUNT) }
+        mMainPresenter.getCurrentPriceForCity("Chennai".toLowerCase())
+    }
 
-        mPokemonAdapter.setClickListener(this)
-        mPokemonRecycler?.layoutManager = LinearLayoutManager(this)
-        mPokemonRecycler?.adapter = mPokemonAdapter
+    override fun showPetrolPrice(petrol: Double) {
+        mPetrolPriceView?.setCharacterList(TickerUtils.getDefaultNumberList())
+        mPetrolPriceView?.setText("₹".plus(petrol.toString()))
+    }
 
-        mErrorView?.setErrorListener(this)
-
-        mMainPresenter.getPokemon(POKEMON_COUNT)
+    override fun showDieselPrice(diesel: Double) {
+        mDieselPriceView?.setCharacterList(TickerUtils.getDefaultNumberList())
+        mDieselPriceView?.setText("₹".plus(diesel.toString()))
     }
 
     override val layout: Int
@@ -54,49 +49,16 @@ class MainActivity : BaseActivity(), MainMvpView, PokemonAdapter.ClickListener, 
         mMainPresenter.detachView()
     }
 
-    override fun showPokemon(pokemon: List<String>) {
-        mPokemonAdapter.setPokemon(pokemon)
-        mPokemonAdapter.notifyDataSetChanged()
-
-        mPokemonRecycler?.visibility = View.VISIBLE
-        mSwipeRefreshLayout?.visibility = View.VISIBLE
-    }
-
     override fun showProgress(show: Boolean) {
         if (show) {
-            if (mPokemonRecycler?.visibility == View.VISIBLE && mPokemonAdapter.itemCount > 0) {
-                mSwipeRefreshLayout?.isRefreshing = true
-            } else {
-                mProgress?.visibility = View.VISIBLE
-
-                mPokemonRecycler?.visibility = View.GONE
-                mSwipeRefreshLayout?.visibility = View.GONE
-            }
-
-            mErrorView?.visibility = View.GONE
+            mProgress?.visibility = View.VISIBLE
         } else {
-            mSwipeRefreshLayout?.isRefreshing = false
             mProgress?.visibility = View.GONE
         }
     }
 
     override fun showError(error: Throwable) {
-        mPokemonRecycler?.visibility = View.GONE
-        mSwipeRefreshLayout?.visibility = View.GONE
-        mErrorView?.visibility = View.VISIBLE
         Timber.e(error, "There was an error retrieving the pokemon")
     }
 
-    override fun onPokemonClick(pokemon: String) {
-        startActivity(DetailActivity.getStartIntent(this, pokemon))
-    }
-
-    override fun onReloadData() {
-        mMainPresenter.getPokemon(POKEMON_COUNT)
-    }
-
-    companion object {
-
-        private val POKEMON_COUNT = 20
-    }
 }

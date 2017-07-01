@@ -1,7 +1,7 @@
 package com.kishorebabu.android.dailyfuelprice.injection.component
 
 import com.kishorebabu.android.dailyfuelprice.data.DataManager
-import com.kishorebabu.android.dailyfuelprice.data.remote.MvpStarterService
+import com.kishorebabu.android.dailyfuelprice.data.remote.FuelPriceService
 import com.kishorebabu.android.dailyfuelprice.injection.ApplicationContext
 import com.kishorebabu.android.dailyfuelprice.injection.module.ApplicationModule
 import android.app.Application
@@ -20,5 +20,5 @@ interface ApplicationComponent {
 
     fun dataManager(): DataManager
 
-    fun mvpBoilerplateService(): MvpStarterService
+    fun mvpBoilerplateService(): FuelPriceService
 }

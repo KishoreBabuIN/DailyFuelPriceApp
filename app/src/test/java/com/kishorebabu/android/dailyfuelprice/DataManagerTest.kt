@@ -3,7 +3,7 @@ package com.kishorebabu.android.dailyfuelprice
 import com.kishorebabu.android.dailyfuelprice.common.TestDataFactory
 import com.kishorebabu.android.dailyfuelprice.data.DataManager
 import com.kishorebabu.android.dailyfuelprice.data.model.PokemonListResponse
-import com.kishorebabu.android.dailyfuelprice.data.remote.MvpStarterService
+import com.kishorebabu.android.dailyfuelprice.data.remote.FuelPriceService
 import com.kishorebabu.android.dailyfuelprice.util.RxSchedulersOverrideRule
 import io.reactivex.Single
 import org.junit.Before
@@ -20,13 +20,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class DataManagerTest {
 
     @Rule @JvmField val mOverrideSchedulersRule = RxSchedulersOverrideRule()
-    @Mock lateinit var mMockMvpStarterService: MvpStarterService
+    @Mock lateinit var mMockFuelPriceService: FuelPriceService
 
     private var mDataManager: DataManager? = null
 
     @Before
     fun setUp() {
-        mDataManager = DataManager(mMockMvpStarterService)
+        mDataManager = DataManager(mMockFuelPriceService)
     }
 
     @Test
@@ -34,7 +34,7 @@ class DataManagerTest {
         val namedResourceList = TestDataFactory.makeNamedResourceList(5)
         val pokemonListResponse = PokemonListResponse(namedResourceList)
 
-        `when`(mMockMvpStarterService.getPokemonList(anyInt()))
+        `when`(mMockFuelPriceService.getPokemonList(anyInt()))
                 .thenReturn(Single.just(pokemonListResponse))
 
         mDataManager?.getPokemonList(10)
@@ -47,7 +47,7 @@ class DataManagerTest {
     fun getPokemonCompletesAndEmitsPokemon() {
         val name = "charmander"
         val pokemon = TestDataFactory.makePokemon(name)
-        `when`(mMockMvpStarterService.getPokemon(anyString()))
+        `when`(mMockFuelPriceService.getPokemon(anyString()))
                 .thenReturn(Single.just(pokemon))
 
         mDataManager?.getPokemon(name)

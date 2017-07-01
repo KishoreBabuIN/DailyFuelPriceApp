@@ -42,32 +42,4 @@ class MainPresenterTest {
         mMainPresenter?.detachView()
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun getPokemonReturnsPokemonNames() {
-        val pokemonList = TestDataFactory.makePokemonNamesList(10)
-        `when`(mMockDataManager.getPokemonList(10))
-                .thenReturn(Single.just(pokemonList))
-
-        mMainPresenter?.getPokemon(10)
-
-        verify<MainMvpView>(mMockMainMvpView, times(2)).showProgress(anyBoolean())
-        verify<MainMvpView>(mMockMainMvpView).showPokemon(pokemonList)
-        verify<MainMvpView>(mMockMainMvpView, never()).showError(RuntimeException())
-
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun getPokemonReturnsError() {
-        `when`(mMockDataManager.getPokemonList(10))
-                .thenReturn(Single.error<List<String>>(RuntimeException()))
-
-        mMainPresenter?.getPokemon(10)
-
-        verify<MainMvpView>(mMockMainMvpView, times(2)).showProgress(anyBoolean())
-//        verify<MainMvpView>(mMockMainMvpView).showError(RuntimeException())
-        verify<MainMvpView>(mMockMainMvpView, never()).showPokemon(ArgumentMatchers.anyList<String>())
-    }
-
 }

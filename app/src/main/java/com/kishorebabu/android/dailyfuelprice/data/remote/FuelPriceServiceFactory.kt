@@ -13,23 +13,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
 /**
- * Provide "make" methods to create instances of [MvpStarterService]
+ * Provide "make" methods to create instances of [FuelPriceService]
  * and its related dependencies, such as OkHttpClient, Gson, etc.
  */
-object MvpStarterServiceFactory {
+object FuelPriceServiceFactory {
 
-    fun makeStarterService(): MvpStarterService {
+    fun makeStarterService(): FuelPriceService {
         return makeMvpStarterService(makeGson())
     }
 
-    private fun makeMvpStarterService(gson: Gson): MvpStarterService {
+    private fun makeMvpStarterService(gson: Gson): FuelPriceService {
         val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.POKEAPI_API_URL)
+                .baseUrl(BuildConfig.FUEL_PRICE_INDIA_BASE_URL)
                 .client(makeOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-        return retrofit.create(MvpStarterService::class.java)
+        return retrofit.create(FuelPriceService::class.java)
     }
 
     private fun makeOkHttpClient(): OkHttpClient {

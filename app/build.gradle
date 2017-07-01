@@ -26,8 +26,8 @@ android {
         // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
         versionName '0.1.0'
 
-        buildConfigField("String", "POKEAPI_API_URL",
-                "\"${PokeapiApiUrl}\"")
+        buildConfigField("String", "FUEL_PRICE_INDIA_BASE_URL",
+                "\"${FuelPriceIndiaBaseUrl}\"")
 
         multiDexEnabled true
     }
@@ -114,6 +114,9 @@ dependencies {
     implementation "com.jakewharton:butterknife:$versions.butterKnife"
     implementation "com.jakewharton.timber:timber:4.5.1"
     implementation "com.facebook.stetho:stetho-okhttp3:1.4.2"
+
+    compile 'com.robinhood.ticker:ticker:1.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     implementation "com.google.dagger:dagger:$versions.dagger"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
