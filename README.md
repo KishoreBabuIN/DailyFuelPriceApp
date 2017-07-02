@@ -1,92 +1,15 @@
-# Android Kotlin Mvp Starter [![Build Status](https://travis-ci.org/ravidsrk/android-mvp-starter.svg?branch=master)](https://travis-ci.org/ravidsrk/android-mvp-starter)
+# Daily Fuel Price Check 
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20MVP%20Starter-blue.svg?style=flat)](https://android-arsenal.com/details/3/5232)
-[![Join the chat at https://gitter.im/android-mvp-starter/Lobby](https://badges.gitter.im/android-mvp-starter/Lobby.svg)](https://gitter.im/android-mvp-starter/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+A pretty basic android app to check the latest fuel prices in major India cities.
 
-An MVP Boilerplate to save me having to create the same project over from scratch every time! :)
-<p align="center">
-  <img src="http://g.recordit.co/L5selg7aIv.gif" width="250">
-  <img src="http://g.recordit.co/7JNqTQMwLS.gif">
-</p>
+This project was bootstrapped using[kotlin-android-started](https://github.com/ravidsrk/kotlin-android-starter)
 
-## This project uses:
-- [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid)
-- [Retrofit](http://square.github.io/retrofit/) / [OkHttp](http://square.github.io/okhttp/)
-- [Gson](https://github.com/google/gson)
-- [Dagger 2](http://google.github.io/dagger/)
-- [Butterknife](https://github.com/JakeWharton/butterknife)
-- [Google Play Services](https://developers.google.com/android/guides/overview)
-- [Timber](https://github.com/JakeWharton/timber)
-- [Glide 3](https://github.com/bumptech/glide)
-- [Stetho](http://facebook.github.io/stetho/)
-- [Espresso](https://google.github.io/android-testing-support-library/) for UI tests
-- [Robolectric](http://robolectric.org/) for framework specific unit tests
-- [Mockito](http://mockito.org/)
+The prices shown are those returned by [fuel_price_india](https://github.com/tekina/fuel_prices_india) - likely Indian Oil.
 
-## Create new project using yeoman [generator-android-mvp-starter](https://github.com/ravidsrk/generator-android-mvp-starter)
-```bash
-npm install -g yo
-npm install -g generator-android-mvp-starter
-mkdir NewApp && cd $_
-yo android-mvp-starter
-```
 
-## Building
-
-To build, install and run a debug version, run this from the root of the project:
-```sh
-./gradlew app:assembleDebug
-```
-    
-## Testing
-
-To run **unit** tests on your machine:
-
-```sh
-./gradlew test
-```
-
-To run **instrumentation** tests on connected devices:
-
-```sh
-./gradlew connectedAndroidTest
-```
-
-## Code Analysis tools
-
-The following code analysis tools are set up on this project:
-
-* [PMD](https://pmd.github.io/)
-
-```sh
-./gradlew pmd
-```
-
-* [Findbugs](http://findbugs.sourceforge.net/)
-
-```sh
-./gradlew findbugs
-```
-
-* [Checkstyle](http://checkstyle.sourceforge.net/)
-
-```sh
-./gradlew checkstyle
-```
-
-## The check task
-
-To ensure that your code is valid and stable use check:
-
-```sh
-./gradlew check
-```
-
-## License
-```
 MIT License
 
-Copyright (c) 2017 Ravindra Kumar
+Copyright (c) 2017 Kishore Babu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
