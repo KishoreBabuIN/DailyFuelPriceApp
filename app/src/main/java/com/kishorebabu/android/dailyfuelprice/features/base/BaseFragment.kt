@@ -1,6 +1,6 @@
 package com.kishorebabu.android.dailyfuelprice.features.base
 
-import com.kishorebabu.android.dailyfuelprice.MvpStarterApplication
+import com.kishorebabu.android.dailyfuelprice.DailyPriceCheckApplication
 import com.kishorebabu.android.dailyfuelprice.injection.component.ConfigPersistentComponent
 import com.kishorebabu.android.dailyfuelprice.injection.component.DaggerConfigPersistentComponent
 import com.kishorebabu.android.dailyfuelprice.injection.component.FragmentComponent
@@ -35,7 +35,7 @@ abstract class BaseFragment : Fragment() {
         if (sComponentsArray.get(mFragmentId) == null) {
             Timber.i("Creating new ConfigPersistentComponent id=%d", mFragmentId)
             configPersistentComponent = DaggerConfigPersistentComponent.builder()
-                    .applicationComponent(MvpStarterApplication[activity].component)
+                    .applicationComponent(DailyPriceCheckApplication[activity].component)
                     .build()
             sComponentsArray.put(mFragmentId, configPersistentComponent)
         } else {

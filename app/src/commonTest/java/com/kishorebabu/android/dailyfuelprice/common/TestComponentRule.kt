@@ -1,6 +1,6 @@
 package com.kishorebabu.android.dailyfuelprice.common
 
-import com.kishorebabu.android.dailyfuelprice.MvpStarterApplication
+import com.kishorebabu.android.dailyfuelprice.DailyPriceCheckApplication
 import com.kishorebabu.android.dailyfuelprice.common.injection.component.DaggerTestComponent
 import com.kishorebabu.android.dailyfuelprice.common.injection.component.TestComponent
 import com.kishorebabu.android.dailyfuelprice.common.injection.module.ApplicationTestModule
@@ -22,7 +22,7 @@ class TestComponentRule(val context: Context) : TestRule {
     val testComponent: TestComponent
 
     init {
-        val application = MvpStarterApplication.get(context)
+        val application = DailyPriceCheckApplication.get(context)
         testComponent = DaggerTestComponent.builder()
                 .applicationTestModule(ApplicationTestModule(application))
                 .build()
@@ -35,7 +35,7 @@ class TestComponentRule(val context: Context) : TestRule {
         return object : Statement() {
             @Throws(Throwable::class)
             override fun evaluate() {
-                val application = MvpStarterApplication.get(context)
+                val application = DailyPriceCheckApplication.get(context)
                 application.component = testComponent
                 base.evaluate()
             }

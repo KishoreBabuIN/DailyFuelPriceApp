@@ -9,7 +9,7 @@ import com.kishorebabu.android.dailyfuelprice.injection.component.DaggerApplicat
 import com.kishorebabu.android.dailyfuelprice.injection.module.ApplicationModule
 import timber.log.Timber
 
-class MvpStarterApplication : MultiDexApplication() {
+class DailyPriceCheckApplication : MultiDexApplication() {
 
     internal var mApplicationComponent: ApplicationComponent? = null
 
@@ -39,8 +39,8 @@ class MvpStarterApplication : MultiDexApplication() {
 
     companion object {
 
-        operator fun get(context: Context): MvpStarterApplication {
-            return context.applicationContext as MvpStarterApplication
+        operator fun get(context: Context): DailyPriceCheckApplication {
+            return context.applicationContext as DailyPriceCheckApplication
         }
     }
 }
