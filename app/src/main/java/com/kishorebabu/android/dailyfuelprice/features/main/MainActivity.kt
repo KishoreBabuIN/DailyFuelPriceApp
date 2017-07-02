@@ -3,17 +3,18 @@ package com.kishorebabu.android.dailyfuelprice.features.main
 import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import butterknife.BindView
 import com.kishorebabu.android.dailyfuelprice.R
 import com.kishorebabu.android.dailyfuelprice.features.base.BaseActivity
-import com.robinhood.ticker.TickerUtils
+import com.kishorebabu.android.dailyfuelprice.util.TickerCharUtil
 import com.robinhood.ticker.TickerView
 import com.tbruyelle.rxpermissions.RxPermissions
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -24,12 +25,18 @@ class MainActivity : BaseActivity(), MainMvpView {
     @BindView(R.id.petrol_price_view) @JvmField var mPetrolPriceView: TickerView? = null
     @BindView(R.id.diesel_price_view) @JvmField var mDieselPriceView: TickerView? = null
     @BindView(R.id.toolbar) @JvmField var mToolbar: Toolbar? = null
+    @BindView(R.id.layout_root) @JvmField var mRootLayout: ConstraintLayout? = null
     private var locationProvider: ReactiveLocationProvider? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityComponent().inject(this)
         mMainPresenter.attachView(this)
+
+        mPetrolPriceView?.setCharacterList(TickerCharUtil.getDefaultListForINRCurrency())
+        mPetrolPriceView?.setText("₹00.00")
+        mDieselPriceView?.setCharacterList(TickerCharUtil.getDefaultListForINRCurrency())
+        mDieselPriceView?.setText("₹00.00")
 
         val rxPermission = RxPermissions(this)
 
@@ -59,13 +66,16 @@ class MainActivity : BaseActivity(), MainMvpView {
                 }
     }
 
+    override fun showErrorFailedToGetPrice() {
+        Toast.makeText(this, "Oops! Failed to get the latest price :(", Toast.LENGTH_SHORT).show()
+    }
+
     override fun showPetrolPrice(petrol: Double) {
-        mPetrolPriceView?.setCharacterList(TickerUtils.getDefaultNumberList())
+
         mPetrolPriceView?.setText("₹".plus(petrol.toString()))
     }
 
     override fun showDieselPrice(diesel: Double) {
-        mDieselPriceView?.setCharacterList(TickerUtils.getDefaultNumberList())
         mDieselPriceView?.setText("₹".plus(diesel.toString()))
     }
 
@@ -83,10 +93,6 @@ class MainActivity : BaseActivity(), MainMvpView {
         } else {
             mProgress?.visibility = View.GONE
         }
-    }
-
-    override fun showError(error: Throwable) {
-        Timber.e(error, "There was an error retrieving the pokemon")
     }
 
     override fun getCityForLocation(location: Location?) {

@@ -30,6 +30,7 @@ constructor(private val mDataManager: DataManager) : BasePresenter<MainMvpView>(
                 }) {
                     throwable ->
                     Timber.e(throwable, "Failed to get current price!")
+                    mvpView?.showErrorFailedToGetPrice()
                 }
     }
 
