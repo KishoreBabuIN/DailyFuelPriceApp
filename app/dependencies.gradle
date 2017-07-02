@@ -1,7 +1,7 @@
 ext {
     versions = [
             support       : "25.2.0",
-            firebase      : '10.2.0',
+            firebase      : '11.0.0',
             okHttp        : "3.5.0",
             retrofit      : '2.2.0',
             espresso      : '2.2.2',
@@ -44,7 +44,7 @@ ext {
     ]
 
     googlePlay = [
-            maps             : "com.google.android.gms:play-services-maps:$versions.firebase",
+            maps             : "com.google.android.gms:play-services-location:$versions.firebase",
             crash            : "com.google.firebase:firebase-crash:$versions.firebase",
             firebaseCore     : "com.google.firebase:firebase-core:$versions.firebase",
             firebaseMessaging: "com.google.firebase:firebase-messaging:$versions.firebase"

@@ -1,5 +1,7 @@
 package com.kishorebabu.android.dailyfuelprice.features.main
 
+import android.location.Address
+import android.location.Location
 import com.kishorebabu.android.dailyfuelprice.data.DataManager
 import com.kishorebabu.android.dailyfuelprice.data.model.CurrentFuelPrice
 import com.kishorebabu.android.dailyfuelprice.features.base.BasePresenter
@@ -29,5 +31,23 @@ constructor(private val mDataManager: DataManager) : BasePresenter<MainMvpView>(
                     throwable ->
                     Timber.e(throwable, "Failed to get current price!")
                 }
+    }
+
+    fun onLocationPermissionGranted() {
+        checkViewAttached()
+        mvpView?.fetchLastKnownLocation()
+    }
+
+    fun onLocationReceived(location: Location?) {
+        checkViewAttached()
+        mvpView?.getCityForLocation(location)
+    }
+
+    fun onAddressReceived(addresses: List<Address>) {
+        val address = addresses[0]
+        val currentCity = address.locality
+        checkViewAttached()
+        mvpView?.showCityName(currentCity, address.adminArea, address.countryCode)
+        getCurrentPriceForCity(currentCity)
     }
 }
