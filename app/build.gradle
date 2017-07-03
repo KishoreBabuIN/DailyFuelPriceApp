@@ -22,7 +22,7 @@ android {
         testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
         def MAJOR_VERSION = 0
         def MINOR_VERSION = 0
-        def BUILD_NUMBER = System.getenv("BUILD_NUMBER") as Integer ?: 1
+        def BUILD_NUMBER = System.getenv("BUILD_NUMBER") as Integer ?: 2
         def versionInt = (MAJOR_VERSION * 100000) + (MINOR_VERSION * 1000) + BUILD_NUMBER
 
         versionCode versionInt
