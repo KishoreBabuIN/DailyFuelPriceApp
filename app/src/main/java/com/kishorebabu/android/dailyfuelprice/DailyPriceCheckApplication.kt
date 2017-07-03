@@ -5,7 +5,6 @@ import android.support.multidex.MultiDexApplication
 import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.kishorebabu.android.dailyfuelprice.injection.component.ApplicationComponent
-import com.kishorebabu.android.dailyfuelprice.injection.component.DaggerApplicationComponent
 import com.kishorebabu.android.dailyfuelprice.injection.module.ApplicationModule
 import com.kishorebabu.android.dailyfuelprice.util.CrashReportingTree
 import com.squareup.leakcanary.LeakCanary
@@ -21,12 +20,11 @@ class DailyPriceCheckApplication : MultiDexApplication() {
 
         Fabric.with(this, Crashlytics())
         if (BuildConfig.DEBUG) {
-            val crashReportingTree = CrashReportingTree();
             Timber.plant(Timber.DebugTree())
             Stetho.initializeWithDefaults(this)
             LeakCanary.install(this)
         } else {
-            val crashReportingTree = CrashReportingTree();
+            val crashReportingTree = CrashReportingTree()
             Timber.plant(crashReportingTree)
         }
     }
