@@ -19,6 +19,7 @@ ext {
 
     supportDeps = [
             appcompatV7      : "com.android.support:appcompat-v7:$versions.support",
+            design           : "com.android.support:design:$versions.support",
             supportAnnotation: "com.android.support:support-annotations:$versions.support",
     ]
 

@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.kishorebabu.android.dailyfuelprice"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 26
         testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
         def MAJOR_VERSION = 0
