@@ -18,4 +18,5 @@
     <string name="petrol">Petrol</string>
     <string name="diesel">Diesel</string>
     <string name="cng">CNG</string>
+    <string name="prices_may_vary_from_outlet_to_outlet_within_a_city">*Prices may vary from Outlet to Outlet within a city.</string>
 </resources>
